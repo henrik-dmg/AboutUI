@@ -12,6 +12,10 @@ struct AboutThirdPartyView: View {
 		self.sections = dictionary.map { Section(title: $0.key.rawValue, dependencies: $0.value) }
 	}
 
+	init(openLinksInApp: Binding<Bool>, @DependencyBuilder dependencies: () -> [Dependency]) {
+		self.init(openLinksInApp: openLinksInApp, dependencies: dependencies())
+	}
+
 	var body: some View {
 		List {
 			ForEach(sections) { section in
@@ -35,6 +39,18 @@ extension AboutThirdPartyView {
 		var id: String {
 			title
 		}
+	}
+
+}
+
+struct AboutThirdPartyView_Previews: PreviewProvider {
+
+	static var previews: some View {
+		AboutThirdPartyView(openLinksInApp: .constant(true)) {
+			Dependency.spm(name: "Mixpanel", licenseFileURL: URL(string: "https://google.com")!)
+			Dependency.carthage(name: "Mixpanel", licenseFileURL: URL(string: "https://google.com")!)
+			Dependency.spm(name: "FloatingPanel", licenseFileURL: URL(string: "https://google.com")!)
+		}.listStyle(InsetGroupedListStyle())
 	}
 
 }

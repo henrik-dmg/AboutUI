@@ -39,7 +39,7 @@ struct AdaptiveLink<Content: View>: View {
 			link
 		}
 		#else
-		Link(destination: destination, label: { content })
+		Link(destination: destination) { content }
 		#endif
 	}
 
@@ -65,14 +65,6 @@ struct AdaptiveLink<Content: View>: View {
 			}
 		}
 	}
-
-	@ViewBuilder
-	private var button: some View {
-		Link(destination: destination) {
-			content
-		}
-	}
-
 	#endif
 
 }
