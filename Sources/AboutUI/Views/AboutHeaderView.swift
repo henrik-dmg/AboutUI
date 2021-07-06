@@ -6,15 +6,18 @@ struct AboutHeaderView: View {
 	let subtitle: String?
 	let appIcon: Image
 
+	@ScaledMetric(relativeTo: .headline)
+	private var imageWidth = 66
+
 	var body: some View {
 		HStack(alignment: .center) {
 			appIcon
 				.resizable()
 				.aspectRatio(contentMode: .fit)
-				.frame(height: 65, alignment: .center)
-				.cornerRadius(13, antialiased: true)
+				.frame(height: imageWidth, alignment: .center)
+				.cornerRadius(imageWidth / 5.5, antialiased: true)
 				.shadow(
-					color: Color.black.opacity(0.3),
+					color: Color.black.opacity(0.15),
 					radius: 4,
 					x: 0,
 					y: 4

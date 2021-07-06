@@ -52,7 +52,7 @@ struct AboutThirdPartyView_Previews: PreviewProvider {
 			Dependency.spm(name: "Mixpanel", licenseFileURL: URL(string: "https://google.com")!)
 			Dependency.carthage(name: "Mixpanel", licenseFileURL: URL(string: "https://google.com")!)
 			Dependency.spm(name: "FloatingPanel", licenseFileURL: URL(string: "https://google.com")!)
-		}.listStyle(InsetGroupedListStyle())
+		}
 	}
 
 }

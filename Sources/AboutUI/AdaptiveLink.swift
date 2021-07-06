@@ -10,11 +10,11 @@ struct AdaptiveLink<Content: View>: View {
 	@Binding var openLinksInApp: Bool
 	@State private var isPresentingSafariView = false
 
-	public init?<S: StringProtocol>(_ title: S, destination: URL?, useContextMenu: Bool = true, openLinksInApp: Binding<Bool>) where Content == Text {
+	init?<S: StringProtocol>(_ title: S, destination: URL?, useContextMenu: Bool = true, openLinksInApp: Binding<Bool>) where Content == Text {
 		self.init(destination: destination, useContextMenu: useContextMenu, openLinksInApp: openLinksInApp, content: { Text(title) })
 	}
 
-	public init?(destination: URL?, useContextMenu: Bool = true, openLinksInApp: Binding<Bool>, @ViewBuilder content: () -> Content) {
+	init?(destination: URL?, useContextMenu: Bool = true, openLinksInApp: Binding<Bool>, @ViewBuilder content: () -> Content) {
 		guard let destination = destination else {
 			return nil
 		}
