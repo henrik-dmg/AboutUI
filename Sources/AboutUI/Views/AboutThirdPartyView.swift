@@ -3,17 +3,19 @@ import SwiftUI
 struct AboutThirdPartyView: View {
 
 	@Binding var openLinksInApp: Bool
+	@Binding var tintColor: Color
 	let sections: [Section]
 
-	init(openLinksInApp: Binding<Bool>, dependencies: [Dependency]) {
+	init(openLinksInApp: Binding<Bool>, tintColor: Binding<Color>, dependencies: [Dependency]) {
 		self._openLinksInApp = openLinksInApp
+		self._tintColor = tintColor
 
 		let dictionary = Dictionary(grouping: dependencies, by: { $0.type })
 		self.sections = dictionary.map { Section(title: $0.key.rawValue, dependencies: $0.value) }
 	}
 
-	init(openLinksInApp: Binding<Bool>, @DependencyBuilder dependencies: () -> [Dependency]) {
-		self.init(openLinksInApp: openLinksInApp, dependencies: dependencies())
+	init(openLinksInApp: Binding<Bool>, tintColor: Binding<Color>, @DependencyBuilder dependencies: () -> [Dependency]) {
+		self.init(openLinksInApp: openLinksInApp, tintColor: tintColor, dependencies: dependencies())
 	}
 
 	var body: some View {
@@ -25,7 +27,7 @@ struct AboutThirdPartyView: View {
 					}
 				}
 			}
-		}.navigationTitle("Third-Party Software")
+		}.accentColor(tintColor).navigationTitle("Third-Party Software")
 	}
 
 }
@@ -46,7 +48,7 @@ extension AboutThirdPartyView {
 struct AboutThirdPartyView_Previews: PreviewProvider {
 
 	static var previews: some View {
-		AboutThirdPartyView(openLinksInApp: .constant(true)) {
+		AboutThirdPartyView(openLinksInApp: .constant(true), tintColor: .constant(.red)) {
 			Dependency.spm(name: "Mixpanel", licenseFileURL: URL(string: "https://google.com")!)
 			Dependency.carthage(name: "Mixpanel", licenseFileURL: URL(string: "https://google.com")!)
 			Dependency.spm(name: "FloatingPanel", licenseFileURL: URL(string: "https://google.com")!)

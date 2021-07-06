@@ -25,6 +25,8 @@ struct AboutHeaderView: View {
 					.foregroundColor(.primary)
 				if let subtitle = subtitle {
 					Text(subtitle)
+						.lineLimit(nil)
+						.multilineTextAlignment(.leading)
 						.font(.subheadline)
 						.foregroundColor(.secondary)
 				}

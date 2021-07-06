@@ -3,31 +3,37 @@ import SwiftUI
 public struct AboutLegalSection: View {
 
 	let dependencies: [Dependency]
+	let privacyPolicyURL: URL?
+	let termsAndConditionsURL: URL?
 	@Binding var openLinksInApp: Bool
+	@Binding var tintColor: Color
 
-	public init(dependencies: [Dependency], openLinksInApp: Binding<Bool>) {
+	public init(dependencies: [Dependency], privacyPolicyURL: URL?, termsAndConditionsURL: URL?, openLinksInApp: Binding<Bool>, tintColor: Binding<Color>) {
 		self.dependencies = dependencies
+		self.privacyPolicyURL = privacyPolicyURL
+		self.termsAndConditionsURL = termsAndConditionsURL
 		self._openLinksInApp = openLinksInApp
+		self._tintColor = tintColor
 	}
 
-	public init(openLinksInApp: Binding<Bool>, @DependencyBuilder dependencies: () -> [Dependency]) {
-		self.init(dependencies: dependencies(), openLinksInApp: openLinksInApp)
+	public init(privacyPolicyURL: URL?, termsAndConditionsURL: URL?, openLinksInApp: Binding<Bool>, tintColor: Binding<Color>, @DependencyBuilder dependencies: () -> [Dependency]) {
+		self.init(dependencies: dependencies(), privacyPolicyURL: privacyPolicyURL, termsAndConditionsURL: termsAndConditionsURL, openLinksInApp: openLinksInApp, tintColor: tintColor)
 	}
 
 	public var body: some View {
 		Section(header: Text("Legal")) {
 			NavigationLink(
 				"Third-Party Software",
-				destination: AboutThirdPartyView(openLinksInApp: $openLinksInApp, dependencies: dependencies)
+				destination: AboutThirdPartyView(openLinksInApp: $openLinksInApp, tintColor: $tintColor, dependencies: dependencies)
 			)
 			AdaptiveLink(
 				"Privacy Policy",
-				destination: URL(string: "https://panhans.dev/apps/songmatcher/privacy.html"),
+				destination: privacyPolicyURL,
 				openLinksInApp: $openLinksInApp
 			)
 			AdaptiveLink(
 				"Terms & Conditions",
-				destination: URL(string: "https://panhans.dev/apps/songmatcher/terms.html"),
+				destination: termsAndConditionsURL,
 				openLinksInApp: $openLinksInApp
 			)
 		}
