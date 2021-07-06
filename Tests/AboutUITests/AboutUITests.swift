@@ -1,6 +1,6 @@
-    import XCTest
-    @testable import AboutUI
+import XCTest
+@testable import AboutUI
 
-    final class AboutUITests: XCTestCase {
-        
-    }
+final class AboutUITests: XCTestCase {
+	
+}

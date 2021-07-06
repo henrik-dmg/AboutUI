@@ -24,17 +24,17 @@ struct AdaptiveLink<Content: View>: View {
 		self._openLinksInApp = openLinksInApp
 	}
 
-	public var body: some View {
+	var body: some View {
 		#if os(iOS)
 		if useContextMenu {
-			link.contextMenu(menuItems: {
+			link.contextMenu {
 				Link(destination: destination) {
 					Label("Open in Safari", systemImage: "safari")
 				}
 				Button(action: { isPresentingSafariView = true }, label: {
 					Label("Open in-app", systemImage: "network")
 				})
-			})
+			}
 		} else {
 			link
 		}
@@ -47,11 +47,11 @@ struct AdaptiveLink<Content: View>: View {
 	@ViewBuilder
 	private var link: some View {
 		if openLinksInApp {
-			Button(action: {
+			Button {
 				isPresentingSafariView = true
-			}, label: {
+			} label: {
 				content
-			}).sheet(isPresented: $isPresentingSafariView) {
+			}.sheet(isPresented: $isPresentingSafariView) {
 				WrappedViewController(viewController: SFSafariViewController(url: destination))
 					.ignoresSafeArea(.container, edges: .bottom)
 			}

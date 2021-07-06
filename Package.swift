@@ -21,9 +21,12 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "AboutUI",
-            dependencies: []),
+            dependencies: [],
+			exclude: ["AboutUI.docc"]
+		),
         .testTarget(
             name: "AboutUITests",
-            dependencies: ["AboutUI"]),
+            dependencies: ["AboutUI"]
+		),
     ]
 )

@@ -1,5 +1,6 @@
 import Foundation
 
+/// A result builder that can be utilised to define a list of dependencies in a SwiftUI-like way
 @resultBuilder public struct DependencyBuilder {
 
 	public static func buildBlock(_ components: Dependency...) -> [Dependency] {
