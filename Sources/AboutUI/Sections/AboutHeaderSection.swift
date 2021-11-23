@@ -10,8 +10,6 @@ public struct AboutHeaderSection<Links: View>: View {
 	let otherAppsProvider: OtherAppsProvider?
 	let links: Links
 
-	@Binding var openLinksInApp: Bool
-
 	/// Creates a section dedicated to showcasing the current app, the app's creator and their (potentially) other created apps
 	/// - Parameters:
 	///   - appName: The name of the app that is being showcased
@@ -28,7 +26,6 @@ public struct AboutHeaderSection<Links: View>: View {
 		appIcon: Image,
 		copyrightName: String? = nil,
 		otherAppsProvider: OtherAppsProvider? = nil,
-		openLinksInApp: Binding<Bool>,
 		@ViewBuilder linksProvider: () -> Links
 	) {
 		self.appName = appName
@@ -36,7 +33,6 @@ public struct AboutHeaderSection<Links: View>: View {
 		self.appIcon = appIcon
 		self.copyrightName = copyrightName
 		self.otherAppsProvider = otherAppsProvider
-		self._openLinksInApp = openLinksInApp
 		self.links = linksProvider()
 	}
 
