@@ -1,70 +1,36 @@
 import SwiftUI
 
-struct AboutOtherAppsView: View {
+struct AboutOtherAppsView<Icon: View>: View {
 
-	let provider: OtherAppsProvider
-	@State private var apps = [App]()
-	@State private var error: Error?
+	let apps: [App]
+	let imageConstructor: (App) -> Icon?
+
+	init(apps: [App], imageConstructor: @escaping (App) -> Icon?) {
+		self.apps = apps.filter { $0.appStoreURL != nil }
+		self.imageConstructor = imageConstructor
+	}
 
 	var body: some View {
-		List {
-			if let error = error {
-				Section {
-					Label(error.localizedDescription, systemImage: "exclamationmark.circle.fill").foregroundColor(.red)
-				}
-			}
-			Section {
-				ForEach(apps) { app in
-					Link(destination: app.appStoreURL) {
-						buildLabel(app: app)
-					}
-				}
-			}
-		}.onAppear {
-			provider.retrieveOtherApps { result in
-				switch result {
-				case .success(let apps):
-					self.apps = apps
-				case .failure(let error):
-					self.error = error
-				}
+		List(apps) { app in
+			Link(destination: app.appStoreURL!) {
+				buildLabel(app: app)
 			}
 		}
 	}
 
 	@ViewBuilder private func buildLabel(app: App) -> some View {
 		HStack {
-			if let image = provider.makeImageForApp(app) {
-				Label {
-					Text(app.name).foregroundColor(.primary)
-				} icon: {
+			if let image = imageConstructor(app) {
+				HStack {
 					image
+					Text(app.name).foregroundColor(.primary)
 				}
 			} else {
 				Text(app.name).foregroundColor(.primary)
 			}
-//			Image("AppIconSmall/\(name)")
-//				.resizable()
-//				.aspectRatio(contentMode: .fit)
-//				.frame(width: 50, height: 50)
-//				.cornerRadius(10)
-
 			Spacer()
 			Image(systemName: "arrow.up.forward.app")
 		}
-	}
-
-}
-
-struct SettingsOtherAppsView_Previews: PreviewProvider {
-
-	static var previews: some View {
-		AboutOtherAppsView(
-			provider: StaticAppsProvider(
-				apps: [App(name: "SongMatcher", id: "asdjkalsdkja", appStoreURL: URL(string: "https://google.com")!)],
-				imageProvider: nil
-			)
-		)
 	}
 
 }
