@@ -1,21 +1,21 @@
 import SwiftUI
 
 public struct AboutOtherAppsSection<Provider: OtherAppsProvider, Icon: View>: View {
-
+    
     @ObservedObject var provider: Provider
     private let iconProvider: (App) -> Icon
-
+    
     public init(provider: Provider, @ViewBuilder iconProvider: @escaping (App) -> Icon) {
         self.provider = provider
         self.iconProvider = iconProvider
     }
-
+    
     public var body: some View {
         content.task {
             provider.retrieveOtherApps()
         }
     }
-
+    
     @ViewBuilder
     private var content: some View {
         switch provider.state {
@@ -42,11 +42,11 @@ public struct AboutOtherAppsSection<Provider: OtherAppsProvider, Icon: View>: Vi
 #endif
         }
     }
-
+    
     @ViewBuilder private func navigationLink(to apps: [App]) -> some View {
         NavigationLink("Other apps") {
             AboutOtherAppsView(apps: apps, imageConstructor: iconProvider)
         }
     }
-
+    
 }
