@@ -42,7 +42,7 @@ public struct AboutLegalSection: View {
     }
     
     public var body: some View {
-        Section(header: Text("Legal")) {
+        Section("Legal") {
             NavigationLink(
                 "Third-Party Software",
                 destination: AboutThirdPartyView(openLinksInApp: $openLinksInApp, tintColor: tintColor, dependencies: dependencies)

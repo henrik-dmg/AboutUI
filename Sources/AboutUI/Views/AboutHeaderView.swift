@@ -3,7 +3,7 @@ import SwiftUI
 struct AboutHeaderView: View {
     
     let appName: String
-    let subtitle: String?
+    let subtitle: LocalizedStringKey?
     let appIcon: Image
     
     @ScaledMetric(relativeTo: .headline)

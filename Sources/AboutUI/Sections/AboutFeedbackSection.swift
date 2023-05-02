@@ -19,7 +19,7 @@ public struct AboutFeedbackSection: View {
     }
     
     public var body: some View {
-        Section.init(header: Text("Feedback")) {
+        Section("Feedback") {
             Link(destination: URL(string: "mailto:\(contactEmailAddress)?subject=\(appName)%20Feedback")!) {
                 Label("Send feedback", systemImage: "envelope")
             }

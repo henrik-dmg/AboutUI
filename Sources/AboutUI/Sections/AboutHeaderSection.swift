@@ -4,9 +4,9 @@ import SwiftUI
 public struct AboutHeaderSection<Links: View>: View {
     
     let appName: String
-    let headerSubtitle: String
+    let headerSubtitle: LocalizedStringKey
     let appIcon: Image
-    let copyrightName: String?
+    let copyrightName: LocalizedStringKey?
     let links: Links
     
     /// Creates a section dedicated to showcasing the current app, the app's creator and their (potentially) other created apps
@@ -19,9 +19,9 @@ public struct AboutHeaderSection<Links: View>: View {
     ///   	be rendered below the showcased app's information and copyright information
     public init(
         appName: String,
-        headerSubtitle: String,
+        headerSubtitle: LocalizedStringKey,
         appIcon: Image,
-        copyrightName: String? = nil,
+        copyrightName: LocalizedStringKey? = nil,
         @ViewBuilder linksProvider: () -> Links
     ) {
         self.appName = appName

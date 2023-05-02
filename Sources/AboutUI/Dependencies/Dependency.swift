@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 /// Represents the nature of a third-party dependency
 public enum DependencyType: String, Identifiable {
@@ -14,6 +15,19 @@ public enum DependencyType: String, Identifiable {
 
     public var id: String {
         rawValue
+    }
+
+    public var name: LocalizedStringKey {
+        switch self {
+        case .spm:
+            return "Swift Package Manager"
+        case .carthage:
+            return "Carthage"
+        case .cocoapods:
+            return "CocoaPods"
+        case .manual:
+            return "Manual"
+        }
     }
 
 }

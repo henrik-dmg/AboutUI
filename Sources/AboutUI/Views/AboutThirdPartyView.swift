@@ -11,7 +11,7 @@ struct AboutThirdPartyView: View {
         self.tintColor = tintColor
         
         let dictionary = Dictionary(grouping: dependencies, by: { $0.type })
-        self.sections = dictionary.map { Section(title: $0.key.rawValue, dependencies: $0.value) }
+        self.sections = dictionary.map { Section(title: $0.key.name, dependencies: $0.value) }
     }
     
     init(openLinksInApp: Binding<Bool>, tintColor: Color, @DependencyBuilder dependencies: () -> [Dependency]) {
@@ -21,7 +21,7 @@ struct AboutThirdPartyView: View {
     var body: some View {
         List {
             ForEach(sections) { section in
-                SwiftUI.Section(header: Text(section.title)) {
+                SwiftUI.Section(section.title) {
                     ForEach(section.dependencies) { dependency in
                         HStack {
                             AdaptiveLink(dependency.name, destination: dependency.licenseFileURL, openLinksInApp: $openLinksInApp)
@@ -30,7 +30,9 @@ struct AboutThirdPartyView: View {
                     }
                 }
             }
-        }.accentColor(tintColor).navigationTitle("Third-Party Software")
+        }
+        .accentColor(tintColor)
+        .navigationTitle("Third-Party Software")
     }
     
 }
@@ -38,11 +40,11 @@ struct AboutThirdPartyView: View {
 extension AboutThirdPartyView {
     
     struct Section: Identifiable {
-        let title: String
+        let title: LocalizedStringKey
         let dependencies: [Dependency]
         
         var id: String {
-            title
+            "\(title)"
         }
     }
     

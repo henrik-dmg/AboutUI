@@ -13,6 +13,10 @@ struct AdaptiveLink<Content: View>: View {
     init?<S: StringProtocol>(_ title: S, destination: URL?, useContextMenu: Bool = true, openLinksInApp: Binding<Bool>) where Content == Text {
         self.init(destination: destination, useContextMenu: useContextMenu, openLinksInApp: openLinksInApp, content: { Text(title) })
     }
+
+    init?(_ title: LocalizedStringKey, destination: URL?, useContextMenu: Bool = true, openLinksInApp: Binding<Bool>) where Content == Text {
+        self.init(destination: destination, useContextMenu: useContextMenu, openLinksInApp: openLinksInApp, content: { Text(title) })
+    }
     
     init?(destination: URL?, useContextMenu: Bool = true, openLinksInApp: Binding<Bool>, @ViewBuilder content: () -> Content) {
         guard let destination = destination else {
