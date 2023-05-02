@@ -24,7 +24,9 @@ struct AboutThirdPartyView: View {
                 SwiftUI.Section(section.title) {
                     ForEach(section.dependencies) { dependency in
                         HStack {
-                            AdaptiveLink(dependency.name, destination: dependency.licenseFileURL, openLinksInApp: $openLinksInApp)
+                            AdaptiveLink(destination: dependency.licenseFileURL, openLinksInApp: $openLinksInApp) {
+                                Text(dependency.name)
+                            }
                             Spacer()
                         }.contentShape(Rectangle())
                     }

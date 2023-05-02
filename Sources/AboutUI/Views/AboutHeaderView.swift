@@ -40,7 +40,7 @@ struct AboutHeaderView: View {
         }
     }
     
-    private func currentVersionString() -> String {
+    private func currentVersionString() -> LocalizedStringKey {
         "Version \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)"
     }
     

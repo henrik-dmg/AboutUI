@@ -6,7 +6,7 @@ public struct AboutHeaderSection<Links: View>: View {
     let appName: String
     let headerSubtitle: LocalizedStringKey
     let appIcon: Image
-    let copyrightName: LocalizedStringKey?
+    let copyright: LocalizedStringKey?
     let links: Links
     
     /// Creates a section dedicated to showcasing the current app, the app's creator and their (potentially) other created apps
@@ -21,33 +21,24 @@ public struct AboutHeaderSection<Links: View>: View {
         appName: String,
         headerSubtitle: LocalizedStringKey,
         appIcon: Image,
-        copyrightName: LocalizedStringKey? = nil,
+        copyright: LocalizedStringKey? = nil,
         @ViewBuilder linksProvider: () -> Links
     ) {
         self.appName = appName
         self.headerSubtitle = headerSubtitle
         self.appIcon = appIcon
-        self.copyrightName = copyrightName
+        self.copyright = copyright
         self.links = linksProvider()
     }
     
     public var body: some View {
         Section {
             AboutHeaderView(appName: appName, subtitle: headerSubtitle, appIcon: appIcon)
-            if let copyrightString = currentCopyrightYearString() {
-                Text(copyrightString)
+            if let copyright {
+                Text(copyright)
             }
             links
         }
-    }
-    
-    private func currentCopyrightYearString() -> String? {
-        guard let copyrightName = copyrightName else {
-            return nil
-        }
-        let cal = Calendar.autoupdatingCurrent
-        let year = cal.component(.year, from: Date())
-        return "© \(year) \(copyrightName)"
     }
     
 }
