@@ -2,7 +2,7 @@ import SwiftUI
 
 struct AboutHeaderView: View {
     
-    let appName: String
+    let appName: LocalizedStringKey
     let subtitle: LocalizedStringKey?
     let appIcon: Image
     
